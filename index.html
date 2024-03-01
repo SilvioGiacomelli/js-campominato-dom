@@ -60,19 +60,22 @@ body{
 </style>
 
 <script>
-  
+
 const gridContainer = document.querySelector(".grid-container")
 const btnStart = document.querySelector(".btn-start");
 
 // Array per le bombe
 let bombNumbers = [];
 
+// Conteggio punti
+let counterPoint = 0;
 
 // Funzione per generare 16 numeri unici casuali come posizioni delle bombe
 function generateBombNumbers() {
   
   bombNumbers = [];
   while(bombNumbers.length < 16) {
+
     const randomNumber = Math.floor(Math.random() * 100) + 1;
     
     if (!bombNumbers.includes(randomNumber)) {
@@ -90,7 +93,10 @@ btnStart.addEventListener("click", inizio)
 
 function inizio(){
   reset()
-  generateBombNumbers(); // Genera le bombe all'inizio di ogni gioco
+  // Genera le bombe all'inizio di ogni gioco
+  generateBombNumbers();
+  // Resetta il contatore di punteggio
+  counterPoint = 0; 
   for(let i = 1; i <= 100; i++){
 
   const square = inserisciRiquadro(i)
@@ -110,14 +116,18 @@ function inserisciRiquadro(numero){
   /////////////////////////////
   
   sq.addEventListener("click", function(){
+
     // Controlla se il quadrato cliccato è una bomba
     if (bombNumbers.includes(numero)) {
       // Colora il quadrato di rosso se è una bomba
       sq.style.backgroundColor = "red"; 
-      alert("Hai trovato una bomba!");
+      alert(`Hai trovato una bomba! Hai fatto: ${counterPoint}`);
+      console.log(`Punteggio finale: ${counterPoint}`);
     } else {
       // Altrimenti, segna il quadrato come cliccato
-      sq.classList.toggle("clicked"); 
+      sq.classList.toggle("clicked");
+      counterPoint++;
+      console.log(`Punteggio attuale: ${counterPoint}`);
     }
     console.log(numero);
   });
