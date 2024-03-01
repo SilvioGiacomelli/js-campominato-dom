@@ -18,7 +18,7 @@
 </body>
 
 <style>
-  
+
 body{
   background-color: gold;
 }
@@ -52,11 +52,19 @@ body{
 .square.clicked{
   background-color: rgb(14, 138, 215);
 }
+
+.square.bombs{
+  background-color: red;
+}
+
 </style>
 
 <script>
 const gridContainer = document.querySelector(".grid-container")
 const btnStart = document.querySelector(".btn-start");
+
+// Array per le bombe
+let bombNumbers = [];
 
 ///Bottone start
 btnStart.addEventListener("click", inizio)
@@ -86,7 +94,7 @@ function inserisciRiquadro(numero){
   // Imposta la classe dell'elemento a "square"
   sq.className = "square"; 
   
-  //////////////////////////////////////////////////THIS è il padre dello scope///////
+  /////////////////////////////
   //////Funzione///Click///////
   /////////////////////////////
   
@@ -94,23 +102,18 @@ function inserisciRiquadro(numero){
   
     function(){
       
-      // Se l'elemento non ha la classe 'clicked', mostra il numero all'interno dell'elemento
-
-      if (!sq.classList.contains("clicked")) {
-        sq.innerHTML = numero;
-      } else {
-        sq.innerHTML = "";
-      }
-      
       sq.classList.toggle("clicked");
 
       console.log(numero)
   })
 
   // Restituisce l'elemento 'sq' così che possa essere aggiunto al codice
-
   return sq
   
+  /////////////////////////////
+  ///Funzione numeri casuali///
+  /////////////////////////////
+
 }
 
 ///////////////////////
