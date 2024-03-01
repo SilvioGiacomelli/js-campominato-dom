@@ -123,6 +123,9 @@ function inserisciRiquadro(numero){
       sq.style.backgroundColor = "red"; 
       alert(`Hai trovato una bomba! Hai fatto: ${counterPoint}`);
       console.log(`Punteggio finale: ${counterPoint}`);
+      // Mostra tutte le bombe
+      showAllBombs(); 
+      
     } else {
       // Altrimenti, segna il quadrato come cliccato
       sq.classList.toggle("clicked");
@@ -132,12 +135,22 @@ function inserisciRiquadro(numero){
     console.log(numero);
   });
 
-  // Restituisce l'elemento 'sq' così che possa essere aggiunto al codice
-  return sq
+   // Restituisce l'elemento 'sq' così che possa essere aggiunto al codice
+   return sq
   
-  /////////////////////////////
-  ///Funzione numeri casuali///
-  /////////////////////////////
+    function showAllBombs() {
+    // Utilizza un ciclo for
+    for (let i = 0; i < bombNumbers.length; i++) {
+      const bombNumber = bombNumbers[i];
+      
+      const bombSquare = gridContainer.children[bombNumber - 1];
+      if (bombSquare && !bombSquare.classList.contains("clicked")) {
+        bombSquare.style.backgroundColor = "red";
+        // Aggiungi una classe per identificare visivamente le bombe
+        bombSquare.classList.add("bomb"); 
+      }
+    }
+  }
 
 }
 
