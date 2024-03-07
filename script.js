@@ -42,6 +42,9 @@ function inizio(){
  }
 }
 
+// Aggiungi una variabile di stato per tenere traccia se il gioco è finito
+let gameOver = false;
+
 // Definizione della funzione inserisciRiquadro che crea un quadrato (div) con un numero associato
 
 function inserisciRiquadro(numero){
@@ -53,9 +56,13 @@ function inserisciRiquadro(numero){
   /////////////////////////////
   
   sq.addEventListener("click", function(){
-
+    if (gameOver) {
+      return;
+    }
     // Controlla se il quadrato cliccato è una bomba
     if (bombNumbers.includes(numero)) {
+      // Imposta lo stato di gioco su finito
+      gameOver = true;
       // Colora il quadrato di rosso se è una bomba
       sq.style.backgroundColor = "red"; 
       alert(`Hai trovato una bomba! Hai fatto: ${counterPoint}`);
@@ -65,7 +72,7 @@ function inserisciRiquadro(numero){
       
     } else {
       // Altrimenti, segna il quadrato come cliccato
-      sq.classList.toggle("clicked");
+      sq.classList.add("clicked");
       counterPoint++;
       console.log(`Punteggio attuale: ${counterPoint}`);
     }
@@ -77,6 +84,9 @@ function inserisciRiquadro(numero){
   
     function showAllBombs() {
     // Utilizza un ciclo for
+    if (!gameOver) {
+      return;
+    }
     for (let i = 0; i < bombNumbers.length; i++) {
       const bombNumber = bombNumbers[i];
       
